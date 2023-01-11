@@ -1,33 +1,113 @@
 
-import { Box, Image, Img, Text } from "@chakra-ui/react";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import AliceCarousel from 'react-alice-carousel';
-import "react-alice-carousel/lib/alice-carousel.css";
+
+import { Button, IconButton } from "@chakra-ui/button";
+import { useDisclosure } from "@chakra-ui/hooks";
+import { AddIcon, ChevronDownIcon, EditIcon, ExternalLinkIcon, HamburgerIcon, RepeatIcon } from "@chakra-ui/icons";
+import { Input } from "@chakra-ui/input";
+import { Box, Flex, HStack, Spacer, Text } from "@chakra-ui/layout";
+import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
+import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay } from "@chakra-ui/modal";
+import { map } from "lodash";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useRef } from "react";
 
 const Header = () => {
-    const items = [
-        <Image w={'100%'} maxH={'600px'} minH={'220px'} position={'relative'} zIndex={-1} className="item" data-value="1" src='/Main001.png' key="1" alt="" role="presentation" />,
-        <Image w={'100%'} maxH={'600px'} minH={'220px'} zIndex={-1} className="item" data-value="2" src='nav.jpg' key="2" alt="" role="presentation" />,
-        <Image w={'100%'} maxH={'600px'} minH={'220px'} zIndex={-1} className="item" data-value="2" src='/DigitalMarketingFrontPic.jpg' key="2" alt="" role="presentation" />,
-    ];
-    return <>
-        <Box w={'100%'} h={'400px'} bgImage='url("./bg8.jpg")'>
-            <Text>Hello</Text>
-            <Img w={'300px'} h={'400px'} src="sleft.png" alt=""></Img>
-        </Box>
-        <Box w={'100%'}>
-            <AliceCarousel paddingLeft disableButtonsControls autoPlay
-                animationDuration={'1000'} disableDotsControls infinite
-                mouseTracking items={items} />
-        </Box>
-        <Box display={'flex'}>
-            <Box w={'20%'} h={'140px'} bgColor='#4DC2C1' align={'center'} color={'white'} fontSize={{ base: '14px', md: '24px' }} pt={'30px'}> Advance Digital Marketing</Box>
-            <Box w={'20%'} h={'140px'} bgColor={'#F15A27'} align={'center'} color={'white'} fontSize={{ base: '14px', md: '24px' }} pt={'50px'}>Content Marketing</Box>
-            <Box w={'20%'} h={'140px'} bgColor='#3CB979' align={'center'} color={'white'} fontSize={{ base: '14px', md: '24px' }} px={{ base: '0px', md: '15px' }} pt={'30px'}>Social Media Marketing</Box>
-            <Box w={'20%'} h={'140px'} bgColor={'#ff9900'} align={'center'} color={'white'} fontSize={{ base: '13px', md: '24px' }} pt={'30px'}>Pay Per Click Management</Box>
-            <Box w={'20%'} h={'140px'} bgColor={'white'} align={'center'} color={'black'} fontSize={{ base: '13px', md: '24px' }} pt={'30px'}>Search Engine Optimization</Box>
-        </Box>
-    </>
+    const router = useRouter();
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const btnRef = useRef()
+
+    const headerTitle = [
+        { id: '/#Footer', title: 'Home' },
+        { id: '/#Footer', title: 'Services' },
+        { id: '/#Footer', title: 'About US' },
+        { id: '/#Footer', title: 'Contact US' },
+        { id: '/#Footer', title: 'Gallery' },
+
+    ]
+
+    return (
+        <Box w={'100%'} px={10} bgColor={{ base: '#008080', md: '#008080', lg: '#008080' }} h={{ base: 16, md: 16, lg: 16 }}>
+            <Flex pt={3}>
+                <Box color={'white'}>printing Logo</Box>
+                <Spacer />
+                <HStack spacing={12} display={{ base: 'none', md: 'flex', lg: 'flex' }}  >
+                    {/* <Flex display={{ base: 'none', md: 'flex', lg: 'flex' }} justify={{ base: 'none', md: 'space-between', lg: 'space-between' }}  > */}
+                    {map(headerTitle, (title) => {
+                        return (
+                            <Box>
+                                {title.title!=='Services'?
+                                <Text color={'white'} fontSize={'20px'} onClick={() => router.push("/#Footer")}>{title.title}</Text>
+                                :
+                                <Menu arrowPadding={6} >
+                                    {({ isOpen }) => (
+                                        <>
+                                            <MenuButton isActive={isOpen} color={'white'} fontSize={'20'} rightIcon={<ChevronDownIcon />}>
+                                            {title.title} <ChevronDownIcon /> 
+                                            </MenuButton>
+                                            <MenuList>
+                                                <MenuItem>Download</MenuItem>
+                                                <MenuItem >Create a Copy</MenuItem>
+                                            </MenuList>
+                                        </>
+                                    )}
+                                </Menu>
+                                }
+                            </Box>
+                        )
+                    })}
+                </HStack>
+                {/* </Flex> */}
+            </Flex>
+            <Flex justify={'flex-end'} display={{ base: 'flex', md: 'none', lg: 'none' }} >
+                <Menu>
+                    <MenuButton
+                        as={IconButton}
+                        aria-label='Options'
+                        icon={<HamburgerIcon />}
+                        variant='outline'
+                        mt={4}
+                        mr={2}
+                    />
+                    <MenuList w={'370px'}>
+                        {map(headerTitle, (title) => {
+                            return (
+                                <MenuItem pl={6} color={'blue'} fontSize={'24'} onClick={() => router.push(title.id)}>{title.title}</MenuItem>
+                            )
+                        })}
+                    </MenuList>
+                </Menu>
+            </Flex>
+        </Box >
+    )
 }
 
 export default Header;
+
+
+/* <Flex justify={'flex-end'} display={{ base: 'flex', md: 'none', lg: 'none' }} >
+            
+            <Button ref={btnRef} onClick={onOpen}>
+                <HamburgerIcon cursor={'pointer'} _hover={{ color: 'white' }}
+                    fontSize={'26px'} position={'fixed'} color='red' />
+            </Button>
+            <Drawer
+                isOpen={isOpen}
+                onClose={onClose}
+                finalFocusRef={btnRef}
+                size={'xs'}
+                placement={'top'}
+            >
+                <DrawerOverlay />
+                <DrawerContent w='sm' mt={20}>
+                    <DrawerCloseButton />
+                    <DrawerBody>
+                        {map(headerTitle, (title) => {
+                            return (
+                                <Text color={'black'} fontSize={'24'} onClick={() => router.push("/#Footer")}>{title.title}</Text>
+                            )
+                        })}
+                    </DrawerBody>
+                </DrawerContent>
+            </Drawer>
+        </Flex> */
