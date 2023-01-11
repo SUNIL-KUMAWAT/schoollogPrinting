@@ -1,4 +1,5 @@
 import { Box } from "@chakra-ui/react";
+import { CarouselTesting } from "./CarouselTesting";
 import Header from "./Header";
 const Layout = ({ children }) => {
     return (
@@ -6,6 +7,7 @@ const Layout = ({ children }) => {
              {/* <DrawerMenu />  */}
             {/* <Icons /> */}
             <Header/>
+            {/* <CarouselTesting/> */}
             {children}
         </Box>
     );
