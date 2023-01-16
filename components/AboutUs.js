@@ -1,36 +1,35 @@
-import { Box, Flex,Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading, Img, Text } from "@chakra-ui/react";
 
-const AboutUsPage = () => {
-    const about = [
-        {
-            data: 'Team of IITIANS',
-            color: '#c8cae3',
-        },
-        {
-            data: 'Exprience of working with leading edtech brands',
-            color: '#c8cae3',
-        },
-        {
-            data: '700+ School',
-            color: '#c8cae3',
-        }
-    ]
-
+const AboutUs = () => {
+   
     return (
         <>
-            <Box id={'AboutUs'} Page bgColor={'white'} >
-                <Heading as={'h1'}>About Us</Heading>
-                <Flex mt={5} mx={'5%'} gap={3} justifyContent="center" align="center" flexDir={{ base: "column", md: "row", lg: 'row' }}>
-                    {about.map(d => {
-                        return (
-                            <Box _hover={{ transform: 'scale(.9)' }} shadow={'2px 2px 10px 1px '} p={5} align={'center'} borderRadius={'20px'} key={d.data} w={{ base: '100%', md: '100%' }} h={'250px'} bg={d.color}>
-                                {d.data}
-                            </Box>
-                        )
-                    })}
+            <Box id={'AboutUs'} align={'center'} my={10} bgColor={'white'} >
+                <Text fontSize={32}>About Us</Text>
+                <Flex mt={{base:8,md:16,lg:16}} gap={10} mx={'5%'}  flexDir={{ base: "column-reverse", md: "column-reverse", lg: 'row' }}>
+                    <Box align={'left'} w={{base:'auto',md:'auto',lg:'650px'}} >
+                        <Text  fontSize={32}>IVY Printing Labs</Text>
+                        <Text mt={5}>We are a well-acclaimed company successfully delivering unmatched
+                            quality printing services since the last 72 years and is among the most
+                            trusted names in the Printing Industry. With years of expertise, constant
+                            up-gradation of Printing Infrastructure coupled with induction of new
+                            techniques, we have virtually become a synonym of the most
+                            dependable Printing Service Provider.
+
+                        </Text>
+                        <Text mt={6}>In Offset and Digital Printing, Jaipur Printers offers the most
+                            comprehensive printing solutions and specializes in printing Books,
+                            Brochures, Catalogues, Business Cards, Envelopes, Letterheads, Flyers,
+                            Magazines, Paper Bags, Posters, Coffee Table Books, Calendars, Invitation
+                            Cards, Labels, Degree Certificates. We are also provide services for
+                            Variable Data Printing.</Text>
+                    </Box>
+                    <Box  >
+                    <Img src="printingPhoto.jpg" h={{base:'auto', md:'350px',lg:'350px'}} alt="image"></Img>
+                    </Box>
                 </Flex>
             </Box>
         </>
     );
 }
-export default AboutUsPage;
+export default AboutUs;

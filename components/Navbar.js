@@ -15,6 +15,7 @@ const Navbar = () => {
   ];
 
   return (
+    <>
       <Box bgColor={'white'} >
         <AliceCarousel keyboardNavigation
           // disableDotsControls
@@ -27,8 +28,14 @@ const Navbar = () => {
           infinite
           autoPlayInterval={3000}
           animationDuration={1000}
-          mouseTracking items={items} />
+          mouseTracking 
+          items={items} />
       </Box>
+      <Box>
+
+      </Box>
+      </>
+
   )
 }
 export default Navbar;
