@@ -1,33 +1,164 @@
 
-import { Box, Image, Img, Text } from "@chakra-ui/react";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import AliceCarousel from 'react-alice-carousel';
-import "react-alice-carousel/lib/alice-carousel.css";
+
+import { Button } from "@chakra-ui/button";
+import { useDisclosure } from "@chakra-ui/hooks";
+import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { Box, Flex, HStack, Spacer, Text, VStack, } from "@chakra-ui/layout";
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Img } from "@chakra-ui/react";
+import { map } from "lodash";
+import { useRouter } from "next/router";
+import { useRef, useState } from "react";
+import {
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
+    PopoverHeader,
+    PopoverFooter,
+} from '@chakra-ui/react'
 
 const Header = () => {
-    const items = [
-        <Image w={'100%'} maxH={'600px'} minH={'220px'} position={'relative'} zIndex={-1} className="item" data-value="1" src='/Main001.png' key="1" alt="" role="presentation" />,
-        <Image w={'100%'} maxH={'600px'} minH={'220px'} zIndex={-1} className="item" data-value="2" src='nav.jpg' key="2" alt="" role="presentation" />,
-        <Image w={'100%'} maxH={'600px'} minH={'220px'} zIndex={-1} className="item" data-value="2" src='/DigitalMarketingFrontPic.jpg' key="2" alt="" role="presentation" />,
-    ];
-    return <>
-        <Box w={'100%'} h={'400px'} bgImage='url("./bg8.jpg")'>
-            <Text>Hello</Text>
-            <Img w={'300px'} h={'400px'} src="sleft.png" alt=""></Img>
+    const router = useRouter();
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const btnRef = useRef()
+
+    const headerTitle = [
+        { id: '/#AboutUs', title: 'About IVY' },
+        { id: '/#Footer', title: 'Services' },
+        { id: '/#Offerings', title: 'Offerings' },
+    ]
+
+    const [hamburgerIcon, setHamburgerIcon] = useState(false)
+    return (
+        <Box >
+            <Flex px={{ base: 3, md: 10, lg: 10 }} mb={{ base: 4, md: 1, lg: 1 }} bgColor={{ base: 'white', md: 'white', lg: 'white' }} h={{ base: 16, md: 24, lg: 24 }}>
+                <Flex w='full' align='center' justifyContent='space-between'>
+                    <Img w={52} h={{ base: 24, md: 32, lg: 32 }} mt={6} src='/IVYlogo.jpeg' key="1" alt="" />,
+                    <HStack spacing={12} display={{ base: 'none', md: 'flex', lg: 'flex' }}  >
+                        {/* <Flex display={{ base: 'none', md: 'flex', lg: 'flex' }} justify={{ base: 'none', md: 'space-between', lg: 'space-between' }}  > */}
+                        {map(headerTitle, (title) => {
+                            return (
+                                <Box>
+                                    {title.title !== 'Services' ?
+                                        <Text wordBreak={'keep-all'} fontWeight={'medium'} color={title.title == 'Home' ? 'green' : 'black'} textDecoration={title.title == 'Home' ? 'underline 2px' : 'black'} _hover={{ textDecoration: 'underline 2px green', }} cursor={'pointer'} fontSize={'18px'} onClick={() => router.push(title.id)} >{title.title} </Text>
+                                        :
+                                        <Popover trigger='hover' w={100}>
+                                            <PopoverTrigger>
+                                                <Flex cursor={'pointer'} _hover={{ textDecoration: 'underline 2px green', }}>
+                                                    <Text fontWeight={'medium'} color={'black'} fontSize={'18px'} borderRadius={'50px'} >  {title.title} </Text>
+                                                    <ChevronDownIcon mt={2} fontSize={18} />
+                                                </Flex>
+                                            </PopoverTrigger>
+                                            <PopoverContent w={'200px'}
+                                            //  borderTop={'3px solid blue'}
+                                            >
+
+                                                <PopoverHeader cursor={'pointer'} _hover={{ backgroundColor: '#445F5F', color: 'white' }} >Header</PopoverHeader>
+
+                                                <PopoverFooter cursor={'pointer'} _hover={{ backgroundColor: '#445F5F', color: 'white' }} >This is the footer</PopoverFooter>
+                                            </PopoverContent>
+                                        </Popover>
+                                    }
+                                </Box>
+                            )
+                        })}
+                        <Button onClick={()=>router.push('/#contactUs')} color={'white'} borderRadius={'10px'} size={'sm'} bgColor={"rgba(101, 78, 163, 0.66)"} _hover={{ bgColor: "rgba(101, 78, 163, 0.5)" }}>Contact Us</Button>
+                        <Button color={'white'} borderRadius={'10px'} size={'sm'} bgColor={"rgba(252, 129, 74, 0.99)"} _hover={{ bgColor: "rgba(252, 129, 74, 0.79)" }}   >Become a Partner</Button>
+                    </HStack>
+                </Flex>
+                <Spacer />
+
+                <HamburgerIcon display={{ base: 'initial', md: 'none', lg: 'none' }} mt={6} fontSize={'32px'} fontWeight={'bold'} onClick={() => setHamburgerIcon(!hamburgerIcon)} />
+
+            </Flex >
+            <Box position={'absolute'} zIndex={2} w={'100%'} bgColor={'gray.100'} display={{ base: hamburgerIcon ? 'initial' : 'none', md: 'none', lg: 'none' }}>
+                {map(headerTitle, (title) => {
+                    return (
+                        title.title !== 'Services' ?
+                            <Text pl={6} color={'blue'} fontSize={'24'} onClick={() => router.push(title.id)}>{title.title}</Text>
+                            :
+                            <Accordion defaultIndex={[0]} allowMultiple>
+                                <AccordionItem>
+                                    <h2>
+                                        <AccordionButton>
+                                            <Box pl={2} color={'blue'} fontSize={'24px'} flex='1' textAlign={'left'} >
+                                                {title.title}
+                                                <AccordionIcon />
+                                            </Box>
+                                        </AccordionButton>
+                                    </h2>
+                                    <AccordionPanel >
+                                        <Text pl={6} color={'blue'} fontSize={'18'}>option 1</Text>
+                                        <Text pl={6} color={'blue'} fontSize={'18'}>option 2</Text>
+                                    </AccordionPanel>
+                                </AccordionItem>
+
+                            </Accordion>
+
+                    )
+                })}
+                <VStack align={'flex-start'} pl={6} mt={2}>
+                    <Button color={'white'} borderRadius={'10px'} size={'sm'} bgColor={"rgba(101, 78, 163, 0.66)"} _hover={{ bgColor: "rgba(101, 78, 163, 0.5)" }}>Contact Us</Button>
+                    <Button color={'white'} borderRadius={'10px'} size={'sm'} bgColor={"rgba(252, 129, 74, 0.99)"} _hover={{ bgColor: "rgba(252, 129, 74, 0.79)" }}   >Become a Partner</Button>
+                </VStack>
+            </Box>
         </Box>
-        <Box w={'100%'}>
-            <AliceCarousel paddingLeft disableButtonsControls autoPlay
-                animationDuration={'1000'} disableDotsControls infinite
-                mouseTracking items={items} />
-        </Box>
-        <Box display={'flex'}>
-            <Box w={'20%'} h={'140px'} bgColor='#4DC2C1' align={'center'} color={'white'} fontSize={{ base: '14px', md: '24px' }} pt={'30px'}> Advance Digital Marketing</Box>
-            <Box w={'20%'} h={'140px'} bgColor={'#F15A27'} align={'center'} color={'white'} fontSize={{ base: '14px', md: '24px' }} pt={'50px'}>Content Marketing</Box>
-            <Box w={'20%'} h={'140px'} bgColor='#3CB979' align={'center'} color={'white'} fontSize={{ base: '14px', md: '24px' }} px={{ base: '0px', md: '15px' }} pt={'30px'}>Social Media Marketing</Box>
-            <Box w={'20%'} h={'140px'} bgColor={'#ff9900'} align={'center'} color={'white'} fontSize={{ base: '13px', md: '24px' }} pt={'30px'}>Pay Per Click Management</Box>
-            <Box w={'20%'} h={'140px'} bgColor={'white'} align={'center'} color={'black'} fontSize={{ base: '13px', md: '24px' }} pt={'30px'}>Search Engine Optimization</Box>
-        </Box>
-    </>
+    )
 }
 
 export default Header;
+
+
+/* <Flex justify={'flex-end'} display={{ base: 'flex', md: 'none', lg: 'none' }} >
+            
+            <Button ref={btnRef} onClick={onOpen}>
+                <HamburgerIcon cursor={'pointer'} _hover={{ color: 'white' }}
+                    fontSize={'26px'} position={'fixed'} color='red' />
+            </Button>
+            <Drawer
+                isOpen={isOpen}
+                onClose={onClose}
+                finalFocusRef={btnRef}
+                size={'xs'}
+                placement={'top'}
+            >
+                <DrawerOverlay />
+                <DrawerContent w='sm' mt={20}>
+                    <DrawerCloseButton />
+                    <DrawerBody>
+                        {map(headerTitle, (title) => {
+                            return (
+                                <Text color={'black'} fontSize={'24'} onClick={() => router.push("/#Footer")}>{title.title}</Text>
+                            )
+                        })}
+                    </DrawerBody>
+                </DrawerContent>
+            </Drawer>
+        </Flex> */
+{/* <PopoverCloseButton /> */ }
+{/* <PopoverBody >
+                                                    <Text m={0} _hover={{backgroundColor:'red'}}  cursor={'pointer'} _Hover={{ color: "red" }}  fontSize={'18px'} onClick={() => router.push("/#Footer")}  >Download</Text>
+                                                    <Divider orientation='horizontal' />
+                                                    <Text _hover={{color:'red'}} cursor={'pointer'} _Hover={{ color: "red" }}  pl={6} py={1}  fontSize={'18px'} onClick={() => router.push("/#Footer")}>Create a Copy</Text>
+                                                </PopoverBody> */}
+
+
+
+{/* <VStack justify={'flex-end'} display={{ base: 'flex', md: 'none', lg: 'none' }} > */ }
+{/* <Menu>
+                    <MenuButton
+                        as={IconButton}
+                        aria-label='Options'
+                        icon={<HamburgerIcon fontSize={'20px'} fontWeight={'bold'}/>}
+                        // variant='outline'
+                        mt={4}
+                        size={'sm'}
+                    />
+                    <MenuList w={'375px'}>
+                        {map(headerTitle, (title) => {
+                            return (
+                                <MenuItem pl={6} color={'blue'} fontSize={'18'} onClick={() => router.push(title.id)}>{title.title}</MenuItem>
+                            )
+                        })}
+                    </MenuList>
+                </Menu> */}
+{/* </VStack> */ }

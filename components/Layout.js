@@ -1,13 +1,18 @@
 import { Box } from "@chakra-ui/react";
-import DrawerMenu from "./DrawerMenu";
-import Icons from "./Icons";
-
+import AboutUs from "./AboutUs";
+import ContactUs from "./ContactUs";
+import Footer from "./Footer";
+import Header from "./Header";
+import Navbar from "./Navbar";
+import Services from "./Services";
+import Offerings from "./Offerings";
+import ChooseUs from "./ChooseUs";
 const Layout = ({ children }) => {
     return (
         <Box>
-             <DrawerMenu /> 
-            <Icons />
+            <Header/>
             {children}
+            <Footer/>
         </Box>
     );
 }
