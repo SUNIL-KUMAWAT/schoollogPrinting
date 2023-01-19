@@ -40,17 +40,17 @@ const Header = () => {
 
     const [hamburgerIcon, setHamburgerIcon] = useState(false)
     return (
-        <>
-            <Flex px={{ base: 3, md: 10, lg: 10 }} mb={{base:4,md:1,lg:1}} bgColor={{ base: 'white', md: 'white', lg: 'white' }} h={{ base: 16, md: 24, lg: 24 }}>
+        <Box >
+            <Flex  px={{ base: 3, md: 10, lg: 10 }} mb={{base:4,md:1,lg:1}} bgColor={{ base: 'white', md: 'white', lg: 'white' }} h={{ base: 16, md: 24, lg: 24 }}>
                 <Flex w='full' align='center' justifyContent='space-between'>
-                    <Img w={52} h={{base:24,md:32,lg:32}} mt={6} src='./IVYlogo.jpeg' key="1" alt="" />,
+                    <Img w={52} h={{base:24,md:32,lg:32}} mt={6} src='/IVYlogo.jpeg' key="1" alt="" />,
                     <HStack spacing={12} display={{ base: 'none', md: 'flex', lg: 'flex' }}  >
                         {/* <Flex display={{ base: 'none', md: 'flex', lg: 'flex' }} justify={{ base: 'none', md: 'space-between', lg: 'space-between' }}  > */}
                         {map(headerTitle, (title) => {
                             return (
                                 <Box>
                                     {title.title !== 'Services' ?
-                                        <Text fontWeight={'medium'} color={title.title == 'Home' ? 'green' : 'black'} textDecoration={title.title == 'Home' ? 'underline 2px' : 'black'} _hover={{ textDecoration: 'underline 2px green', }} cursor={'pointer'} fontSize={'18px'} onClick={() => router.push(title.id)}>{title.title}</Text>
+                                        <Text fontWeight={'medium'} color={title.title == 'Home' ? 'green' : 'black'} textDecoration={title.title == 'Home' ? 'underline 2px' : 'black'} _hover={{ textDecoration: 'underline 2px green', }} cursor={'pointer'} fontSize={'18px'} onClick={() => router.push(title.id)} >{title.title} </Text>
                                         :
                                         <Popover trigger='hover' w={100}>
                                             <PopoverTrigger>
@@ -108,7 +108,7 @@ const Header = () => {
                     )
                 })}
             </Box>
-        </>
+        </Box>
     )
 }
 

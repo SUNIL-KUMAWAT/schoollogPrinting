@@ -6,20 +6,18 @@ import Header from "./Header";
 import Navbar from "./Navbar";
 import Services from "./Services";
 import Offerings from "./Offerings";
+import ChooseUs from "./ChooseUs";
 const Layout = ({ children }) => {
     return (
         <Box>
              {/* <DrawerMenu />  */}
             {/* <Icons /> */}
             <Header/>
-            <Navbar /> 
-            <AboutUs/>
-            <Services/>
-            <ContactUs/>
-       <Offerings/>
-       <Footer/>
+           
+       
             {/* <CarouselTesting/> */}
             {children}
+            <Footer/>
         </Box>
     );
 }

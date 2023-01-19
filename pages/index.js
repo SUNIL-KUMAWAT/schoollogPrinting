@@ -1,8 +1,15 @@
 import { Box } from '@chakra-ui/react'
 import Head from 'next/head'
+import AboutUs from '../components/AboutUs'
+import Choose from '../components/Choose'
+import ChooseUs from '../components/ChooseUs'
+import ContactUs from '../components/ContactUs'
 import Footer from '../components/Footer'
+import Carousel6 from '../components/multiImagecarousel'
 import Navbar from '../components/Navbar'
+import Offerings from '../components/Offerings'
 import CarouselSlide from '../components/Offerings'
+import Services from '../components/Services'
 
 export default function Home() {
   return (
@@ -16,6 +23,14 @@ export default function Home() {
        {/* <Navbar /> 
        <CarouselSlide/>
        <Footer/> */}
+        <Navbar /> 
+            <AboutUs/>
+            <Services/>
+       <Offerings/>
+       <ChooseUs/>
+       <Choose/>
+       <ContactUs/>
+       {/* <Carousel6/> */}
     </Box>
   )
 }
