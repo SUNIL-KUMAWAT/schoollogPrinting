@@ -55,11 +55,11 @@ const ChooseUs = () => {
                             <Image
                                 borderRadius='full'
                                 border={'5px solid gray'}
-                                boxSize='180px'
+                                boxSize={{base:'100px',md:'180px',lg:'180px'}}
                                 src={e.image}
                                 alt='image'
                             />
-                            <Text mt={'20px'} fontWeight={'semibold'} fontSize={'14px'}>{e.Name}</Text>
+                            <Text w={{base:'100px',md:'180px',lg:'180px'}} mt={'20px'} fontWeight={'semibold'} fontSize={'14px'}>{e.Name}</Text>
                             <Text fontSize={'14px'}>{e.Position}</Text>
                         </Box>
                     </WrapItem>

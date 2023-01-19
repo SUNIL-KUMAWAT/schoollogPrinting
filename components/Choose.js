@@ -49,7 +49,7 @@ const Choose = () => {
        
     ]
 
-    return <Box display={{base:'initial',md:'none',lg:'none'}}>
+    return <Box display={{base:'initial',md:'initial',lg:'none'}}>
 
 <Flex mt={'50px'} justify={'center'}>
             <Divider w={{ base: '50px', md: '200px', lg: '200px' }} mt={'16px'} />
@@ -60,7 +60,7 @@ const Choose = () => {
         </Flex>
 
         <HStack
-            overflowX={{ base: 'scroll', md: 'scroll', lg: 'hidden' }}
+            overflowX={{ base: 'scroll', md: 'scroll', lg: 'block' }}
             spacing={5}
             mx={'10%'}
         >

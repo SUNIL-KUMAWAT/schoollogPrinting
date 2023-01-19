@@ -10,12 +10,7 @@ import ChooseUs from "./ChooseUs";
 const Layout = ({ children }) => {
     return (
         <Box>
-             {/* <DrawerMenu />  */}
-            {/* <Icons /> */}
             <Header/>
-           
-       
-            {/* <CarouselTesting/> */}
             {children}
             <Footer/>
         </Box>

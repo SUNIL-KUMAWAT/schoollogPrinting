@@ -6,26 +6,17 @@ import "react-alice-carousel/lib/alice-carousel.css";
 const Offerings = () => {
 
   const items = [
-    <Image w={'310px'} h={'280px'}   className="item" data-value="1" src='./1.png' key="1" alt="" role="presentation" />,
-    <Image w={'310px'} h={'280px'}   className="item" data-value="2" src='./2.png' key="2" alt="" role="presentation" />,
-    <Image w={'310px'} h={'280px'}   className="item" data-value="3" src='./3.png' key="3" alt="" role="presentation" />,
-    <Image w={'310px'} h={'280px'}   className="item" data-value="4" src='./4.png' key="4" alt="" role="presentation" />,
-    <Image w={'310px'} h={'280px'}   className="item" data-value="5" src='./5.png' key="5" alt="" role="presentation" />,
-    <Image w={'310px'} h={'280px'}   className="item" data-value="6" src='./6.png' key="6" alt="" role="presentation" />,
-    <Image w={'310px'} h={'280px'}   className="item" data-value="7" src='./7.png' key="7" alt="" role="presentation" />,
-    <Image w={'310px'} h={'280px'}   className="item" data-value="8" src='./8.png' key="8" alt="" role="presentation" />,
-    <Image w={'310px'} h={'280px'}   className="item" data-value="9" src='./9.png' key="9" alt="" role="presentation" />,
+    <Image w={'310px'} h={'280px'}   className="item" data-value="1" src='./plasticHolder.jpeg' key="1" alt="" role="presentation" />,
+    <Image w={'310px'} h={'280px'}   className="item" data-value="2" src='./miSheet.jpeg' key="2" alt="" role="presentation" />,
+    <Image w={'310px'} h={'280px'}   className="item" data-value="3" src='./multiIdCard.jpeg' key="3" alt="" role="presentation" />,
+    <Image w={'310px'} h={'280px'}   className="item" data-value="4" src='./pvcHolder.jpeg' key="4" alt="" role="presentation" />,
+    <Image w={'310px'} h={'280px'}   className="item" data-value="5" src='./rfidCard.jpeg' key="5" alt="" role="presentation" />,
+    <Image w={'310px'} h={'280px'}   className="item" data-value="6" src='./idCard.jpeg' key="6" alt="" role="presentation" />,
+    <Image w={'310px'} h={'280px'}   className="item" data-value="7" src='./hook.jpeg' key="7" alt="" role="presentation" />,
+    <Image w={'310px'} h={'280px'}   className="item" data-value="8" src='./idCardSheets.jpeg' key="8" alt="" role="presentation" />,
+    <Image w={'310px'} h={'280px'}   className="item" data-value="9" src='./miIdCard.jpeg' key="9" alt="" role="presentation" />,
 
   ];
-  // const responsive = {
-  //   0: { items: 1 },
-  //   146: { items: 2 },
-  //   292: { items: 3 },
-  //   348: { items: 4 },
-  //   584: { items: 5 },
-  //   730: { items: 6 },
-  //   1024: { items: 7 }
-  // };
 
   return (
     <Box align={'center'} id={'Offerings'}>

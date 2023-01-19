@@ -1,15 +1,11 @@
 
 
-import { Button, IconButton } from "@chakra-ui/button";
+import { Button } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { AddIcon, ChevronDownIcon, EditIcon, ExternalLinkIcon, HamburgerIcon, RepeatIcon } from "@chakra-ui/icons";
-import { Input } from "@chakra-ui/input";
-import { Box, Divider, Flex, HStack, Spacer, Text, VStack, } from "@chakra-ui/layout";
-import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
-import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay } from "@chakra-ui/modal";
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Img, Portal, Select } from "@chakra-ui/react";
+import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { Box, Flex, HStack, Spacer, Text, VStack, } from "@chakra-ui/layout";
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Img } from "@chakra-ui/react";
 import { map } from "lodash";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import {
@@ -17,11 +13,7 @@ import {
     PopoverTrigger,
     PopoverContent,
     PopoverHeader,
-    PopoverBody,
     PopoverFooter,
-    PopoverArrow,
-    PopoverCloseButton,
-    PopoverAnchor,
 } from '@chakra-ui/react'
 
 const Header = () => {
@@ -33,24 +25,21 @@ const Header = () => {
         { id: '/#AboutUs', title: 'About IVY' },
         { id: '/#Footer', title: 'Services' },
         { id: '/#Offerings', title: 'Offerings' },
-        // { id: '/#Footer', title: 'Contact US' },
-        // { id: '/#Footer', title: 'Gallery' },
-
     ]
 
     const [hamburgerIcon, setHamburgerIcon] = useState(false)
     return (
         <Box >
-            <Flex  px={{ base: 3, md: 10, lg: 10 }} mb={{base:4,md:1,lg:1}} bgColor={{ base: 'white', md: 'white', lg: 'white' }} h={{ base: 16, md: 24, lg: 24 }}>
+            <Flex px={{ base: 3, md: 10, lg: 10 }} mb={{ base: 4, md: 1, lg: 1 }} bgColor={{ base: 'white', md: 'white', lg: 'white' }} h={{ base: 16, md: 24, lg: 24 }}>
                 <Flex w='full' align='center' justifyContent='space-between'>
-                    <Img w={52} h={{base:24,md:32,lg:32}} mt={6} src='/IVYlogo.jpeg' key="1" alt="" />,
+                    <Img w={52} h={{ base: 24, md: 32, lg: 32 }} mt={6} src='/IVYlogo.jpeg' key="1" alt="" />,
                     <HStack spacing={12} display={{ base: 'none', md: 'flex', lg: 'flex' }}  >
                         {/* <Flex display={{ base: 'none', md: 'flex', lg: 'flex' }} justify={{ base: 'none', md: 'space-between', lg: 'space-between' }}  > */}
                         {map(headerTitle, (title) => {
                             return (
                                 <Box>
                                     {title.title !== 'Services' ?
-                                        <Text fontWeight={'medium'} color={title.title == 'Home' ? 'green' : 'black'} textDecoration={title.title == 'Home' ? 'underline 2px' : 'black'} _hover={{ textDecoration: 'underline 2px green', }} cursor={'pointer'} fontSize={'18px'} onClick={() => router.push(title.id)} >{title.title} </Text>
+                                        <Text wordBreak={'keep-all'} fontWeight={'medium'} color={title.title == 'Home' ? 'green' : 'black'} textDecoration={title.title == 'Home' ? 'underline 2px' : 'black'} _hover={{ textDecoration: 'underline 2px green', }} cursor={'pointer'} fontSize={'18px'} onClick={() => router.push(title.id)} >{title.title} </Text>
                                         :
                                         <Popover trigger='hover' w={100}>
                                             <PopoverTrigger>
@@ -62,9 +51,9 @@ const Header = () => {
                                             <PopoverContent w={'200px'}
                                             //  borderTop={'3px solid blue'}
                                             >
-                                            
+
                                                 <PopoverHeader cursor={'pointer'} _hover={{ backgroundColor: '#445F5F', color: 'white' }} >Header</PopoverHeader>
-                                                
+
                                                 <PopoverFooter cursor={'pointer'} _hover={{ backgroundColor: '#445F5F', color: 'white' }} >This is the footer</PopoverFooter>
                                             </PopoverContent>
                                         </Popover>
@@ -72,16 +61,16 @@ const Header = () => {
                                 </Box>
                             )
                         })}
-                        <Button color={'white'} borderRadius={'10px'} size={'sm'} bgColor={"rgba(101, 78, 163, 0.66)"} _hover={{bgColor:"rgba(101, 78, 163, 0.5)" }}>Contact Us</Button>
-                        <Button color={'white'} borderRadius={'10px'} size={'sm'} bgColor={"rgba(252, 129, 74, 0.99)"} _hover={{bgColor:"rgba(252, 129, 74, 0.79)" }}   >Become a Partner</Button>
+                        <Button onClick={()=>router.push('/#contactUs')} color={'white'} borderRadius={'10px'} size={'sm'} bgColor={"rgba(101, 78, 163, 0.66)"} _hover={{ bgColor: "rgba(101, 78, 163, 0.5)" }}>Contact Us</Button>
+                        <Button color={'white'} borderRadius={'10px'} size={'sm'} bgColor={"rgba(252, 129, 74, 0.99)"} _hover={{ bgColor: "rgba(252, 129, 74, 0.79)" }}   >Become a Partner</Button>
                     </HStack>
                 </Flex>
                 <Spacer />
-             
+
                 <HamburgerIcon display={{ base: 'initial', md: 'none', lg: 'none' }} mt={6} fontSize={'32px'} fontWeight={'bold'} onClick={() => setHamburgerIcon(!hamburgerIcon)} />
-              
+
             </Flex >
-            <Box position={'absolute'} zIndex={2} w={'100%'} bgColor={'white'} display={{ base: hamburgerIcon ? 'initial' : 'none', md: 'none', lg: 'none' }}>
+            <Box position={'absolute'} zIndex={2} w={'100%'} bgColor={'gray.100'} display={{ base: hamburgerIcon ? 'initial' : 'none', md: 'none', lg: 'none' }}>
                 {map(headerTitle, (title) => {
                     return (
                         title.title !== 'Services' ?
@@ -91,9 +80,9 @@ const Header = () => {
                                 <AccordionItem>
                                     <h2>
                                         <AccordionButton>
-                                            <Box  pl={2} color={'blue'} fontSize={'18'}  flex='1' textAlign={'left'} >
-                                            {title.title}
-                                            <AccordionIcon />
+                                            <Box pl={2} color={'blue'} fontSize={'24px'} flex='1' textAlign={'left'} >
+                                                {title.title}
+                                                <AccordionIcon />
                                             </Box>
                                         </AccordionButton>
                                     </h2>
@@ -107,6 +96,10 @@ const Header = () => {
 
                     )
                 })}
+                <VStack align={'flex-start'} pl={6} mt={2}>
+                    <Button color={'white'} borderRadius={'10px'} size={'sm'} bgColor={"rgba(101, 78, 163, 0.66)"} _hover={{ bgColor: "rgba(101, 78, 163, 0.5)" }}>Contact Us</Button>
+                    <Button color={'white'} borderRadius={'10px'} size={'sm'} bgColor={"rgba(252, 129, 74, 0.99)"} _hover={{ bgColor: "rgba(252, 129, 74, 0.79)" }}   >Become a Partner</Button>
+                </VStack>
             </Box>
         </Box>
     )
@@ -141,8 +134,8 @@ export default Header;
                 </DrawerContent>
             </Drawer>
         </Flex> */
-        {/* <PopoverCloseButton /> */}
-                                                {/* <PopoverBody >
+{/* <PopoverCloseButton /> */ }
+{/* <PopoverBody >
                                                     <Text m={0} _hover={{backgroundColor:'red'}}  cursor={'pointer'} _Hover={{ color: "red" }}  fontSize={'18px'} onClick={() => router.push("/#Footer")}  >Download</Text>
                                                     <Divider orientation='horizontal' />
                                                     <Text _hover={{color:'red'}} cursor={'pointer'} _Hover={{ color: "red" }}  pl={6} py={1}  fontSize={'18px'} onClick={() => router.push("/#Footer")}>Create a Copy</Text>
@@ -150,8 +143,8 @@ export default Header;
 
 
 
-                                                   {/* <VStack justify={'flex-end'} display={{ base: 'flex', md: 'none', lg: 'none' }} > */}
-                {/* <Menu>
+{/* <VStack justify={'flex-end'} display={{ base: 'flex', md: 'none', lg: 'none' }} > */ }
+{/* <Menu>
                     <MenuButton
                         as={IconButton}
                         aria-label='Options'
@@ -168,4 +161,4 @@ export default Header;
                         })}
                     </MenuList>
                 </Menu> */}
-                {/* </VStack> */}
+{/* </VStack> */ }

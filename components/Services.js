@@ -1,7 +1,8 @@
-import { Box, Flex, Heading, Img, Text } from "@chakra-ui/react";
+import { Box, Flex, Img, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { map } from "lodash"
-import Link from 'next/link'
+import Link from 'next/link';
+import { PRODUCT_TYPES } from "../constants";
 
  
 const Services = () => {
@@ -10,16 +11,20 @@ const Services = () => {
         {
             data: "printingPhoto.jpg",
             Text: 'Accessories',
-            path: '/SelectedProductPage'
+            path: '/SelectedProductPage',
+            type: PRODUCT_TYPES.accessories
         },
         {
             data: "printingPhoto.jpg",
             Text: 'Lanyard',
-            path: '#SelectedItemPage'
+            path: '/SelectedProductPage',
+            type:PRODUCT_TYPES.lanyard
         },
         {
             data: "printingPhoto.jpg",
             Text: 'ID Cards',
+            path: '/SelectedProductPage',
+            type:PRODUCT_TYPES.idCard
         }
     ]
 
@@ -30,7 +35,8 @@ const Services = () => {
                 <Flex mt={2} mx={'5%'} gap={4} justifyContent="center" align="center" flexDir={{ base: "column", md: "row", lg: 'row' }}>
                     {map(about, d => {
                         return (
-                                <Box onClick={()=> router.push(d.path) }>
+                            <Link href={`/service/${d.type}`}>
+                                <Box>
                                     <Box h={'fit-content'}  cursor={'pointer'} key={d.data} role="group" position={"relative"}>
                                         <Box
                                             px={4}
@@ -44,6 +50,7 @@ const Services = () => {
                                     </Box>
                                     <Text fontSize={28} mt={4}>{d.Text}</Text>
                                 </Box>
+                            </Link>
                         )
                     }
                     )}

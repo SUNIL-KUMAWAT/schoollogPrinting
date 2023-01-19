@@ -1,26 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Input, Flex, FormControl, FormLabel, Button, InputGroup, InputLeftElement, Select, Textarea, Img, Text } from "@chakra-ui/react"
 import { PhoneIcon } from "@chakra-ui/icons";
 import { Controller, useForm } from "react-hook-form";
+import { PRODUCT_TYPES } from "../constants";
+import { map } from "lodash";
+import { useRouter } from "next/router";
 
 const ContactUs = () => {
-    const [value, setValue] = useState('');
     const [data, setData] = useState();
     const [regForm, setRegForm] = useState([]);
+    const router = useRouter();
+    const buyProductService = router.query.service;
+    const buyProductQuantity = router.query.quantity;
 
-    console.log(regForm);
-    const { handleSubmit, control, watch } = useForm({ defaultValue: {} });
+    const { handleSubmit, control, watch, setValue } = useForm({ defaultValue: {} });
+    
     const onSubmit = (data) => {
         const { name, city, quantity } = data;
         console.log('fineTypeIds', fineTypeIds)
-        // let Data = { }
     }
 
-    return <Box align={'center'} my={20} py={6} bgColor={'rgba(101, 78, 163, 0.5)'}>
+    useEffect( () => {
+        if(buyProductService){
+            setValue('quantity', buyProductQuantity)
+        }
+        if(buyProductService){
+            setValue('product', buyProductService)
+        }
+    },[buyProductQuantity, buyProductService])
+    
+
+
+    return <Box id={'contactUs'} align={'center'} my={20} py={6} bgColor={'rgba(101, 78, 163, 0.5)'}>
         <Text fontSize={32}>Contact US</Text>
         
             <Flex justify={'center'}
-            // w={{ base: '90%', md: '80%', lg: '80%' }}
             >
                 <Box display={{ base: 'none', md: 'initial', lg: 'initial' }} p={4} w={'320px'} align={'left'}
                 bgGradient='linear(260deg,#FBF1D3 2.29%, rgba(251, 241, 211, 0) 100.94%,#FBF1D3 100.94%)'
@@ -60,7 +74,6 @@ const ContactUs = () => {
                             />
 
                         </FormControl>
-
                         <FormControl>
                             <FormLabel >Phone Number</FormLabel>
                             <Controller
@@ -82,24 +95,20 @@ const ContactUs = () => {
                         <FormControl >
                             <FormLabel>Select Product</FormLabel>
                             <Controller
-                                name="products"
+                                name="product"
                                 control={control}
                                 render={({ field }) =>
                                     <Select  {...field} placeholder='Products' >
-                                        <option>Graphic Designe</option>
-                                        <option>Id Card</option>
-                                        <option>T-Shirt</option>
-                                        <option>Cards</option>
-                                        <option>Poster</option>
+                             {map(PRODUCT_TYPES,product =>
+                                        <option>{product}</option>
+                                        ) } 
                                     </Select>}
                             />
-
                         </FormControl>
                         <Button mt={4} w={'180px'} _hover={{ backgroundColor: 'white', color: 'black', border: '2px solid black' }} type="submit" bgColor={'black'} color={'white'}>
                             Submit Now
                         </Button>
                     </Box>
-
                 </form>
             </Flex>
         </Box>

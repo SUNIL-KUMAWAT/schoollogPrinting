@@ -3,13 +3,12 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { Img, Divider, } from '@chakra-ui/react'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import AliceCarousel from 'react-alice-carousel';
 import "react-alice-carousel/lib/alice-carousel.css";
 import { map } from "lodash";
-import { useMemo, useState } from "react";
-import { PRODUCTS } from "../constants";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-const SelectedItemPage = ({ details }) => {
+const SelectedItemPage = ({ productItem ,recommendItems}) => {
     const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
         useNumberInput({
             step: 1,
@@ -20,12 +19,21 @@ const SelectedItemPage = ({ details }) => {
 
     const inc = getIncrementButtonProps()
     const dec = getDecrementButtonProps()
-    const input = getInputProps();
-  
-    console.log("details", details)
+    const input = getInputProps()
+    const router = useRouter()
+
+    const handleContactUs = () =>{
+         router.push({ pathname: '/', query: { quantity: input.value, service: productItem.slug }})
+    }
+
+    
+    const [imageShow, setImageShow] = useState()
+    useEffect(()=>{
+        setImageShow(productItem.thumbnail)
+    },[productItem.thumbnail])
 
 
-    if(!details) return;
+    if(!productItem) return;
     return <Box id={'SelectedItemPage'} my={12} mx={{ base: 'none', md: '2%', lg: '10%' }}>
         <Card
             direction={{ base: 'column', sm: 'row', }}
@@ -37,25 +45,25 @@ const SelectedItemPage = ({ details }) => {
                     objectFit='cover'
                     display={{ base: 'none', md: 'block' }}
                     maxW={{ base: '100%', md: '400px', lg: '500px' }}
-                    src={details.thumbnail}
+                    src={imageShow}
                     alt='Caffe Latte'
                 />
                 <Box maxW={{ base: '100%', md: '400px', lg: '500px' }}>
                     <Box display={{ base: 'none', lg: 'block' }}>
-                        <MultipleCaroselImage images={details.images} showArrow />
+                        <MultipleCaroselImage setImageShow={setImageShow} images={productItem.images} showArrow />
                     </Box>
                     <Box display={{ base: 'block', lg: 'none' }}>
-                        <MultipleCaroselImage images={details.images} showDot />
+                        <MultipleCaroselImage setImageShow={setImageShow} images={productItem.images} showDot />
                     </Box>
                 </Box>
             </Box>
             <Stack>
                 <CardBody>
-                    <Heading size='md'>{details.title}</Heading>
-                    <Text mt={2} > <b>Price:</b>  &#8377; {details.price}</Text>
+                    <Heading size='md'>{productItem.title}</Heading>
+                    <Text mt={2} > <b>Price:</b>  &#8377; {productItem.price}</Text>
 
                     <Text fontFamily={'opensans'} py='2'>
-                       {details.details}
+                       {productItem.details}
                     </Text>
                 </CardBody>
 
@@ -66,23 +74,22 @@ const SelectedItemPage = ({ details }) => {
                         <Button bgColor={'#FFB200'}  {...inc}>+</Button>
                     </HStack>
                     <Spacer />
-                    <Button variant='solid' colorScheme='blue'>
+                    <a href='#contactUs'><Button  variant='solid' colorScheme='blue' onClick={handleContactUs}>
                         Buy Now
-                    </Button>
+                    </Button></a>
                 </CardFooter>
             </Stack>
         </Card>
-        <Otherproducts type={details.type} preSelected={details.slug}/>
+        <Otherproducts recommendItems={recommendItems} type={productItem.type} preSelected={productItem.slug}/>
     </Box>
 }
 
 export default SelectedItemPage;
 
 
-export const MultipleCaroselImage = ({ responsiveData = {}, showDot = false, showArrow = false , images}) => {
+export const MultipleCaroselImage = ({ responsiveData = {}, showDot = false, showArrow = false , images,setImageShow}) => {
     const responsive = {
         superLargeDesktop: {
-            // the naming can be any, depends on you.
             breakpoint: { max: 4000, min: 3000 },
             items: 5
         },
@@ -99,30 +106,7 @@ export const MultipleCaroselImage = ({ responsiveData = {}, showDot = false, sho
             items: 1
         },
     };
-    const ProductImages = [
-        {
-            image: 'IVYlogo.jpeg',
-            Name: 'Marketing and advertising support',
-        },
-        {
-            image: 'IVYlogo.jpeg',
-            Name: 'Competitive Pricing Structure',
-        },
-        {
-            image: 'IVYlogo.jpeg',
-            Name: 'Innovation',
-        },
-        {
-            image: 'IVYlogo.jpeg',
-            Name: 'Innovation',
-        },
-        {
-            image: 'IVYlogo.jpeg',
-            Name: 'Innovation',
-        },
-       
-    ]
-    const [imageShow, setImageShow] = useState()
+
     return (
         <Carousel
             responsive={responsive}
@@ -145,42 +129,8 @@ const CarouselImage = ({ src, clickHanlder }) => {
 }
 
 
-const Otherproducts = () => {
+const Otherproducts = ({ type, recommendItems }) => {
 
-    const Gallery = [
-        {
-            image: 'IVYlogo.jpeg',
-            Name: 'Marketing and advertising support',
-        },
-        {
-            image: 'IVYlogo.jpeg',
-            Name: 'Competitive Pricing Structure',
-        },
-        {
-            image: 'IVYlogo.jpeg',
-            Name: 'Innovation',
-        },
-        {
-            image: 'IVYlogo.jpeg',
-            Name: 'Innovation',
-        },
-        {
-            image: 'IVYlogo.jpeg',
-            Name: 'Competitive Pricing Structure',
-        },
-        {
-            image: 'IVYlogo.jpeg',
-            Name: 'Innovation',
-        },
-        {
-            image: 'IVYlogo.jpeg',
-            Name: 'Innovation',
-        },
-        {
-            image: 'IVYlogo.jpeg',
-            Name: 'Innovation',
-        },
-    ]
 
     return <Box>
 
@@ -209,19 +159,19 @@ const Otherproducts = () => {
                 }
             }}
         >
-            {map(Gallery, (image) => {
+            {map(recommendItems, (product) => {
                 return (
-                    <Box m={4} boxShadow={'0px 0px 30px -17px #0000001c'} align={'center'} mb={4}>
+                    <Box key={product.title} m={4} boxShadow={'0px 0px 30px -17px #0000001c'} align={'center'} mb={4}>
                         <Img
                             // boxSize='230px'
                             minW={220}
                             h={220}
                             borderRadius={10}
                             objectFit='cover'
-                            src={image.image}
+                            src={product.thumbnail}
                             alt='Dan Abramov'
                         />
-                        <Text mb={4}>title</Text>
+                        <Text mb={4}>{product.title}</Text>
                     </Box>
                 )
             })
